@@ -1,0 +1,225 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[10pt,a4paper,sans]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+% moderncv themes
+\moderncvstyle{classic}                             % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue}                               % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+\usepackage{url}
+
+\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+
+% adjust the page margins
+\usepackage[scale=0.75]{geometry}
+
+%\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+% personal data
+\name{孙晓飞}{}
+% \title{Resumé title}                               % optional, remove / comment the line if not wanted
+\address{Stony Brook, NY, 11790}{}{}% optional, remove / comment the line if not wanted; the "postcode city" and and "country" arguments can be omitted or provided empty
+\phone[mobile]{(+1) 3158793236}                   % optional, remove / comment the line if not wanted
+% \phone[fixed]{+2~(345)~678~901}                    % optional, remove / comment the line if not wanted
+% \phone[fax]{+3~(456)~789~012}                      % optional, remove / comment the line if not wanted
+\email{adoni1203@gmail.com}                               % optional, remove / comment the line if not wanted
+% \homepage{http://adoni.github.io/\textasciitilde xfsun}
+\homepage{adoni.github.io}                        % optional, remove / comment the line if not wanted
+% \extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+% \photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+% \quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+%\usepackage{multibib}
+%\newcites{book,misc}{{Books},{Others}}
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\usepackage{geometry}
+\geometry{left=2.0cm, right=2.0cm, top=1.9cm, bottom=1.9cm}
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+\vspace{-0.4cm}
+\section{教育}
+
+\cventry{\footnotesize{2017至今}}{博士研究生}{Stony Brook University}{美国}{}{}
+
+\cventry{\footnotesize{2015--2017}}{硕士研究生}{哈尔滨工业大学}{中国}{}{}
+
+\cventry{\footnotesize{2013.9--2014.1}}{交换生}{台湾大学}{中国台湾}{}{}
+
+\cventry{\footnotesize{2011--2015}}{本科}{哈尔滨工业大学}{中国}{}{}
+
+\section{技术能力}
+% \cventry{\footnotesize{Programming}}{\normalfont{\textbf{Python, C/C++, Java, {\LaTeX}}}}{}{}{}{}
+\cventry{\footnotesize{编程}}{\normalfont{Python, C/C++, Prolog, Java,  {\LaTeX}}}{}{}{}{}
+\cventry{\footnotesize{工具}}{\normalfont{DyNet, PyTorch, Tensorflow, Scikit-Learn, Pandas, MongoDB, Redis, Selenium, Web Crawler, Web.py}}{}{}{}{}
+% \cventry{\footnotesize{Typewriting}}{\normalfont}{}{}{}{}
+
+
+\section{Experiences}
+
+% \cventry{\footnotesize{2017.9--Present}}{Teaching Assistant}{CSE 519 Data Science}{Prof. Steven Skiena}{}{}
+
+\cventry{\footnotesize{2017.3--2017.7}}{软件工程实习生}{微众传媒邮箱公司}{北京}{指导老师：赵鑫}{
+\begin{itemize}
+    \item {搭建了 \textbf{智能选品系统}, 可以基于微信公众号所发布的文章推荐适合在该公众号销售的商品。}
+    \item {在该系统中，我们基于产品和文章中的关键词匹配进行推荐，同时利用主题模型避免多语义和歧义所带来的问题。}
+    \item {目前该系统正在微众公司线上运行。}
+\end{itemize}
+}
+% \begin{itemize}
+%     \item {Build \emph{Smart Choice} System and Weizoom goods recommendation system.}
+% \end{itemize}
+% }
+
+% \cventry{\footnotesize{2016.5--2016.10}}{Executive Committee Member}{SMP CUP 2016}{Jiangxi, China}{}{
+% \begin{itemize}
+%     \item {In charge of data collection.
+%     % [\href{https://biendata.com/competition/1/data/}{\textcolor{color1}{Dataset}}]
+%     }
+% \end{itemize}
+% }
+
+% \cventry{\footnotesize{2016 Spring}}{Teaching Assistant}{Software Design and Practice \Rmnum{1}: Data Structure}{Prof. Yang Liu}{}{}
+
+\cventry{\footnotesize{2015.5--2015.9}}{研究实习生}{HTC北京研究中心}{}{}{
+\begin{itemize}%
+    % \item {Demographic mentions is useful for user demographic inferring. E.g. , by saying ``\texttt{my wife}", we know this user may be a male.}
+    \item {Work on project \textbf{User Profiling on E-commerce Websites from Online Review}.}
+    \item {Use weakly-supervised learning to predict demographic attribute based on demographic mentions.}
+    \item {For example, if someone said: \noindent``\texttt{I bought \underline{my wife} iPhone 6s, and it worked well}". Then the consumer is probable to be a married male.}
+\end{itemize}
+}
+% \begin{itemize}
+%     \item {Work on project \emph{User Profiling on E-commerce Websites from Online Review}.}
+% \end{itemize}
+% }
+
+\cventry{\footnotesize{2015.5--2015.9}}{研究实习生}{北京语言大学}{}{}{
+\begin{itemize}%
+    \item {Develop \textbf{Semantic Cloud Platform}, a system to detect the vicissitude of Chinese semantic in last ten years.
+    % [\href{https://github.com/Adoni/WordPlatform-Beiyu}{\textcolor{color1}{Code}}]
+    }
+    \item {Learn word embeddings in each year and take the nearest neighbors as the possible semantics. Cluster potential semantics with AP clustering. Regard the clustering results as the multiple semantics of each word.}
+    \item {Result reveals influences from subculture (new language), big company (like ``Apple''), and so on.}
+\end{itemize}
+}
+% \begin{itemize}
+%     \item {Develop Semantic Cloud Platform.}
+% \end{itemize}
+% }
+
+
+\section{代表性项目}
+% \cventry{\footnotesize{2017}}{Smart Choice}{}{}{}{
+% \begin{itemize}
+%     \item {A recommendation system to recommend goods to sell for a WeChat Official Accounts based on their articles.}
+%     \item {Rank a product based on the keywords matched between this product and the articles. Use topic model to avoid the ambiguity of keywords.}
+%     \item {Now it serves as the backend algorithm for Weizoom company.}
+% \end{itemize}
+% }
+\cventry{\footnotesize{2016}}{Content Enhanced Network Embedding (CENE)}{}{}{[\href{https://github.com/Adoni/CENE}{\textcolor{color1}{Code}}]
+}{
+\begin{itemize}
+    \item {Existing methods cannot utilize multi-modal data like text or images, which is common in social networks.}
+    \item {By joint optimizing loss function in the node-node edge and node-content edge and mapping multi-modal content into the same embedding space, CENE can leverage structure and content information in a social network to improve the embedding accuracy.}
+    \item {Applications on node classification show that CENE significantly improved the F1 score from 0.72 to 0.79 when comparing to state-of-art models, e.g. node2vec, TriDNR and TADW.}
+\end{itemize}}
+% \cventry{\footnotesize{2015}}{Semantic Cloud Platform}{}{}{
+% [\href{https://github.com/Adoni/WordPlatform-Beiyu}{\textcolor{color1}{Code}}]
+% % [\href{http://103.37.150.140}{\textcolor{color1}{Demo}}]
+% }{
+% \begin{itemize}
+%     \item {A system to detect the vicissitude of Chinese semantic in last ten years.}
+%     % \item {Learn multiple senses of a word in each year. Model is based on word2vec and AP clustering.}
+%     \item {Learn word embeddings in each year and take the nearest neighbors as the possible semantics. Cluster potential semantics with AP clustering. Regard the clustering results as the multiple semantics of each word.}
+%     \item {Result reveals influences from subculture (new language), big company (like ``apple''), and so on.}
+%     % \item {It's running}
+% \end{itemize}}
+% \cventry{\footnotesize{2015}}{User Profiling on E-commerce Websites from Online Review}{}{}{}{
+% \begin{itemize}%
+%     % \item {Demographic mentions is useful for user demographic inferring. E.g. , by saying ``\texttt{my wife}", we know this user may be a male.}
+%     \item {Use weakly-supervised learning to predict demographic attribute based on demographic mentions.}
+%     \item {For example, if someone said: \noindent``\texttt{I bought \underline{my wife} iPhone 6s, and it worked well}". Then the consumer is probable to be a married male.}
+% \end{itemize}
+% }
+
+% \cventry{\footnotesize{2014--2015}}{User Profiling on Weibo}{}{}{}{
+% \begin{itemize}%
+%     \item {Predict user attributes in Sina Weibo using a semi-supervised representation model.}
+%     \item {Design an ensemble method to use users' multi-modal data like text, image, emoticons and so on.}
+% \end{itemize}}
+% \cventry{\footnotesize{2014}}{Weibo Spider}{}{
+% %[\href{https://github.com/Adoni/WeiboSpider}{\textcolor{color1}{Code}}]
+% }{}{
+% \begin{itemize}%
+%     \item {A distributed crawler to collect data on Weibo, used in \emph{SMP CUP 2016} and \emph{User Profiling on Weibo} mentioned above.}
+% \end{itemize}}
+% \cventry{\footnotesize{2012}}{Time Steward}{}{[\href{https://github.com/Adoni/Skylark}{\textcolor{color1}{Code}}]}{}{
+% \begin{itemize}%
+%     \item {This is an entry for Android Application Challenge 2012. It helped users focus on their work by locking some user-selected applications in android phone. We won Reginal Outstanding Prize of the Android Application Challenge in Northeast China.}
+% \end{itemize}}
+
+\section{发表文章}
+
+\cventry{\footnotesize{[1]}}{\normalfont{A General Framework for Content-enhanced Network Representation Learning[J].} \textbf{X Sun}, J Guo, X Ding, T Liu. arXiv.}{}{}{[\href{https://arxiv.org/pdf/1610.02906.pdf}{\textcolor{color1}{PDF}}]}{}
+
+\cventry{\footnotesize{[2]}}{{\normalfont{Personalized Microtopic Recommendation on Microblogs[J]. Y Li, J Jiang, T Liu, M Qiu, \textbf{X Sun}. ACM TIST. [\href{https://dl.acm.org/citation.cfm?id=2932192}{\textcolor{color1}{PDF}}]}}}{}{}{}{}
+
+% \cventry{\footnotesize{[3]}}{\normalfont{Research of the Influence of User Representation Methods for User Attributes Classification on Weibo[C]. \textbf{X Sun}, X Zhao, T Liu. SMP 2015. (in Chinese)}}{}{}{}{}
+
+\cventry{\footnotesize{[3]}}{\normalfont{Gender Identification on Social Media[C]. \textbf{X Sun}, X Ding, T Liu. SMP 2014. [\href{https://link.springer.com/chapter/10.1007/978-3-662-45558-6_9}{\textcolor{color1}{PDF}}]}}{}{}{}{}
+
+% \section{Research Interests}
+% \cventry{}{\normalfont Network Representation Learning, Deep Learning for Natural Language Processing, Data mining on Social Networks}{}{}{}{}
+
+\section{获奖情况}
+% \cventry{\footnotesize{2016}}{\normalfont{National Scholarship for Graduate}}{}{Harbin Institute of Technology}{China}{}
+\cventry{\footnotesize{2015}}{\normalfont{最佳论文}}{第四届全国社会媒体处理大会}{}{}{}
+% \cventry{\footnotesize{2015}}{\normalfont{Outstanding Undergraduate Graduation Thesis Award}}{Harbin Institute of Technology}{}{}{}
+% \cventry{\footnotesize{2015}}{\normalfont{Second Prize of National Level Innovation Project for Undergraduate}}{}{\textbf{Project Leader}}{}{}
+\cventry{\footnotesize{2014}}{\normalfont{微软小学者}}{}{}{}{}
+% \cventry{\footnotesize{2012}}{\normalfont{Reginal Outstanding Prize of the Android Application Challenge in Northeast China}}{}{\textbf{Team Leader}}{}{}
+% \cventry{\footnotesize{2012}}{\normalfont{Regional First Prize of the Undergraduate Mathematical Contest in Modeling}}{}{}{}{}
+% \cventry{\footnotesize{2011}}{\normalfont{Second Prize of Freshman Innovation Project}}{}{\textbf{Project Leader}}{}{}
+% \cventry{\footnotesize{2010}}{\normalfont{National Second Prize of National Olympiad in Informatics in Provinces}}{}{(in high school)}{}{}
+
+
+
+
+
+
+
+
+
+% \nocite{*}
+% \bibliographystyle{plain}
+% \bibliography{main}
+
+\end{document}
+
+
+%% end of file `template.tex'.
