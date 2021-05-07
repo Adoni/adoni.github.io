@@ -127,6 +127,7 @@ For more Jupyter details or common tips, please refere [here](!)
 12. Use `tqdm` for big loops
 13. Use `abstract` class when you have to deal with different situation with similar codes
 14. A good book: [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html) and it's [Chinses version](https://zh-google-styleguide.readthedocs.io/en/latest/)
+15. Some time (2020 to 2021), the latest ipython will crash when you press Tab to find tips or auto-complement. You can run `pip install jedi==0.17.2` degrade jedi from 0.18.0 to 0.17.2.
 
 ## Concepts Not Included
 1. PyCharm interesting features and autopep8 in PyCharm
