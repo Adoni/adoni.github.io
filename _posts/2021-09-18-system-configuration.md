@@ -174,7 +174,7 @@ docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 
 ## 安装docker-compose
 
-到https://github.com/docker/compose/releases中下载你需要的版本，我这里用的是1.29.2，也就是v1里的最后一个版本，v2打算观望一下再使用。下载你需要的版本，我这里下载命令是：
+到https://github.com/docker/compose/releases 中下载你需要的版本，我这里用的是1.29.2，也就是v1里的最后一个版本，v2打算观望一下再使用。下载你需要的版本，我这里下载命令是：
 
 ```
 wget https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
