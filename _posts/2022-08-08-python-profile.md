@@ -4,19 +4,15 @@ title:      "Python Profiling"
 subtitle:   "性能瓶颈查验"
 date:       2022-08-08 10:43:00
 author:     "Xiaofei"
-header-img: "img/in-post/2022-08-08/config.jpg"
+header-img: "img/in-post/2022-08-08/python-profiling.jpg"
 header-mask: 0.3
 catalog:    true
 tags:
     - Python
+    - Tools
     - 性能优化
 ---
 
-
-
-> 最近遇到了需要重新配置机器的机会，因此特地记录一下
-
-> 请注意：在本篇中，我们统一使用`yourname`作为用户名
 
 # line-profiler
 
