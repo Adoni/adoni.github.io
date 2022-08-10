@@ -198,3 +198,30 @@ scalene cpu_demo.py
 ### 一点疑问
 
 为什么`x in long_list`这句话的GPU活动那么多
+
+
+
+
+## 建议
+
+| 我们关心的特征        | line-profiler | py-spy | scalene |
+| --------------------- | ------------- | ------ | ------- |
+| 非侵入式修改          | ❌             | ✅      | ✅       |
+| 一键profile           | ❌             | ✅      | ✅❌      |
+| 针对已运行程序profile | ❌             | ✅      | ✅       |
+| 运行速度影响较小      | ❌             | ✅      | ✅       |
+| 结果清晰              | ✅             | ✅❌     | ✅       |
+
+可以看到，以上三种工具，scalene是最为全面的，几乎包含所有我们需要的特性，所以大多数情况下，我们希望使用scalene：
+
+* 一般情况下，直接使用scalene：`scalene --cpu-only cpu_demo.py` ，此时展示的是当前目录下代码相关的profile
+
+* 若自己写的项目较大，可以加上`--reduced-profile`参数，意为只保留瓶颈部分的代码：`scalene --cpu-only --reduced-profile cpu_demo.py`
+
+* `--profile-all `参数慎用，结果会非常有冗长，若需要使用，建议配合`--profile-only`参数使用，从而对文件进行筛选
+* 若需要清洗看到调用关系和占比，再使用py-spy
+
+
+
+
+
