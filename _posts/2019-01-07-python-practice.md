@@ -1,18 +1,18 @@
 ---
 layout:     post
 title:      "Python Coding Practice"
-subtitle:   "I didn't say it's the best practice, so you know ..."
+subtitle:   "I didn't say it's the best practice, so you know :)"
 date:       2019-01-07 10:00:00
 author:     "Xiaofei"
-header-img: "img/in-post/2019-01-08-python-practice.jpg"
+header-img: "img/in-post/2019-01-07/2019-01-08-python-practice.jpg"
 header-mask: 0.3
 catalog:    true
 tags:
     - Python
 ---
 
-
 ## Concurrent and multi-process
+
 It’s common to use services to do something in a company. In this situation, we want to use multiple processing to handle traffic delay.
 
 ```python
@@ -51,7 +51,7 @@ with ThreadPoolExecutor(max_workers=max_workers) as exe:
 	      futures[future] = None
     for future in as_completed(futures, timeout=60 * 20):
         result = future.result()
-        # Do your work here with result
+        ## Do your work here with result
         bar.update(1)
 ```
 
@@ -104,7 +104,7 @@ Return a key-value dict of this manipulate:
 `result = {i: i**0.5 for i in range(1,10)}`
 
 ## Jupyter
-For me, the best thing of Jupyter is the inline plots or said interactive development, which means I can run code on the server and see the plots immediately. Considering that, I used to believe that Jupyter is the best practice when you exploring data science until I read this slides: [I Don’t Like Notebooks - Joel Grus - #JupyterCon 2018 - Google Slides](https://docs.google.com/presentation/d/1n2RlMdmv1p25Xy5thJUhkKGvjtV-dkAIsUXP-AL4ffI/edit#slide=id.g3d168d2fd3_0_6)
+For me, the best thing of Jupyter is the inline plots or said interactive development, which means I can run code on the server and see the plots immediately. Considering that, I used to believe that Jupyter is the best practice when you exploring data science until I read this slides: [I Don’t Like Notebooks - Joel Grus - ##JupyterCon 2018 - Google Slides](https://docs.google.com/presentation/d/1n2RlMdmv1p25Xy5thJUhkKGvjtV-dkAIsUXP-AL4ffI/edit#slide=id.g3d168d2fd3_0_6)
 
 But I still believe that Jupyter is a great tool. If you have a dataset and wanna know the data distribute or some statistics measures, use pandas + jupyter; if you want plot on a remote machine, use matplotlib+jupyter; if you want a short tutorial, use markdonw and latex in jupyter. Yes, each of those requirements can be satisfied by other means. However, it means you need to google it and do a lot hacks, which is not friendly to novices. For example, if I want to plot on server and show results on my local screen, I need to google it, and luckily it will tell me to use X11 forwarding, which, however, will mess you up in turn. I will write another post to show how to to it.
 

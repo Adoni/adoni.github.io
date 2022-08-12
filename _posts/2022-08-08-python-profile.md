@@ -14,6 +14,63 @@ tags:
 ---
 
 
+
+对于一个程序员而言，一般我们的追求包括：稳定性、效率、效果。而profiling就是我们优化效率的重要步骤——瓶颈发现。profiling，在软件工程中的意思大体接近于【性能分析、瓶颈分析】，也就是去看代码运行过程中在各个环节中耗费的时间。
+
+注意，这里profiling只是发现瓶颈的一个选项，而且是一个保底但是通用的选项。如果天赋异禀或者经验老到，完全可以靠经验或灵感发现问题，比如变量反复申请、进程线程session等反复创建、list加in操作、多重循环、gpu-cpu数据交换频繁等等，这个我们甚至可以单开一个文档来写。
+
+这份文档我们针对python-profiling介绍三个工具，本篇中的profiling我们默认以以下代码为例：
+
+`find_x.py`
+
+```python
+# encoding: utf-8
+import numpy
+import torch
+
+long_list = list(range(1000000))
+
+
+def find_x(x):
+    y = numpy.random.rand(2000, 100)
+    len_y = y.sum()
+    x in long_list
+    y = torch.rand((2000, 10)).cuda()
+
+```
+
+`demo.py`
+
+```python
+# encoding: utf-8
+import random
+import time
+
+from tqdm import tqdm
+
+from finx_x import find_x
+
+
+def run():
+    """
+    这个函数慢的点在于在长list中进行in操作
+    """
+
+    for _ in tqdm(range(100)):
+        idx = random.randint(0, 1000000 - 1)
+        find_x(idx)
+        time.sleep(0.01)
+
+
+if __name__ == '__main__':
+    run()
+
+```
+
+（对，我也想吐槽——这么简单的代码还要拆成两个文件。然而为了展示跨文件的效果，就忍了吧。）
+
+
+
 ## line-profiler
 
 line-profiler是我们比较早使用的工具，通过装饰器实现，需要开发人员在想要profile的函数上添加`@profile`装饰器。其输出较为友好，虽然是terminal上的。
@@ -52,52 +109,39 @@ py-spy的原理是插针法，也就是通过对当前程序的采样获取每�
 
 ### 第一种典型用法
 
-我们以以下代码为例：
-
-```python
-# encoding: utf-8
-import random
-
-import numpy
-from tqdm import tqdm
-
-long_list = list(range(1000000))
-
-
-def find_x(x):
-    y = numpy.random.rand(2000, 100)
-    len_y = y.sum()
-    return x in long_list
-
-
-def run():
-    """
-    这个函数慢的点在于在长list中进行in操作
-    """
-
-    for _ in tqdm(range(100)):
-        idx = random.randint(0, len(long_list) - 1)
-        find_x(idx)
-
-
-if __name__ == '__main__':
-    run()
-
-```
-
 ```bash
-py-spy record -o profile.svg -- python cpu_demo.py
+py-spy record -o profile.svg -- python demo.py
 ```
 
 也就是对于`python function_call_demo.py`这个操作进行profile，输出到profile.svg这个文件中。这个操作可以中间停止，也可以指定只运行一段时间，然后自动停止。
 
-我们可以把profile.svg下载到本地然后打开（默认打开应该是浏览器），能看到这样的火焰图：
+我们可以把profile.svg下载到本地然后打开（默认打开应该是浏览器），能看到这样的火焰图（注意，这里展示的是带行号的模式，也就是到行的profiling，也可以到函数，加一个参数`-F`，参数含义参考help文档）：
 
-![image-20220807212317995](/img/in-post/2022-08-08/image-20220807212317995.png)
+![image-20220811105510634](/img/in-post/2022-08-08/image-20220811105510634.png)
 
-这里我们可以看到有两个瓶颈，一个是11行，一个是13行，我们看一下代码，发现一个是生成random矩阵，另一个是list中查找元素，的确会比较慢，符合预期
+这里我们可以看到有三个瓶颈，分别是find_x文件里的11行、12行、第9行以及demo文件里的第7行，我们看一下代码，分别是list的in操作、初始化torch并转移到gpu、初始化numpy以及初始化long_list，符合预期。
 
-注意，这里展示的是带行号的模式，也就是到行的profiling，也可以到函数，加一个参数`-F`，参数含义参考help文档
+然而这里不太好的一点是，默认不展示time.sleep消耗的时间，原因参见py-spy的readme种的FAQ：https://github.com/benfred/py-spy#how-do-you-detect-if-a-thread-is-idle-or-not
+
+摘录如下：
+
+> ### How do you detect if a thread is idle or not?
+>
+> py-spy attempts to only include stack traces from threads that are actively running code, and exclude threads that are sleeping or otherwise idle. When possible, py-spy attempts to get this thread activity information from the OS: by reading in `/proc/PID/stat` on Linux, by using the mach [thread_basic_info](https://opensource.apple.com/source/xnu/xnu-792/osfmk/mach/thread_info.h.auto.html) call on OSX, and by looking if the current SysCall is [known to be idle](https://github.com/benfred/py-spy/blob/8326c6dbc6241d60125dfd4c01b70fed8b8b8138/remoteprocess/src/windows/mod.rs#L212-L229) on Windows.
+>
+> There are some limitations with this approach though that may cause idle threads to still be marked as active. First off, we have to get this thread activity information before pausing the program, because getting this from a paused program will cause it to always return that this is idle. This means there is a potential race condition, where we get the thread activity and then the thread is in a different state when we get the stack trace. Querying the OS for thread activity also isn't implemented yet for FreeBSD and i686/ARM processors on Linux. On Windows, calls that are blocked on IO also won't be marked as idle yet, for instance when reading input from stdin. Finally, on some Linux calls the ptrace attach that we are using may cause idle threads to wake up momentarily, causing false positives when reading from procfs. For these reasons, we also have a heuristic fallback that marks known certain known calls in python as being idle.
+>
+> You can disable this functionality by setting the `--idle` flag, which will include frames that py-spy considers idle.
+
+我们可以通过增加`-i`参数来让py-spy展示这部分空闲（idle）时间
+
+![image-20220811110915026](/img/in-post/2022-08-08/image-20220811110915026.png)
+
+
+
+你可以增加`-n`选项，用来展示更深层的native代码的调用，如下图可以展示torch更详细的调用：
+
+![image-20220811111051617](/img/in-post/2022-08-08/image-20220811111051617.png)
 
 ### 第二种典型用法
 
@@ -129,6 +173,8 @@ sudo env "PATH=$PATH" !!
 
 参考项目主页
 
+
+
 ### 不足
 
 * 直接针对pid进行profiling涉及sudo权限
@@ -143,6 +189,8 @@ sudo env "PATH=$PATH" !!
 
 ## scalene
 
+官网地址：https://github.com/plasma-umass/scalene
+
 scalene是另一个python包，用的方案和py-spy不太一样，是通过signal来进行时间判断的，是一种没有那么精准的方法（但是据作者说已经足够了，我也验证过，日常使用没有问题）。
 
 我们还是需要先安装
@@ -151,13 +199,19 @@ scalene是另一个python包，用的方案和py-spy不太一样，是通过sign
 pip install -U scalene
 ```
 
+
+
 ### 不足
 
 我们这次先说不足，因为里面有一条会影响我们后面添加的一个参数
 
-* 不支持针对pid的profiling
-
 * 针对memory的profiling不支持python3.6和python3.7，如果直接使用，则会提示：`AttributeError: module 'threading' has no attribute '_shutdown_locks_lock'`，所以，我们一般要加上`--cpu-only`，这虽然说的是`cpu`，但是经过测试，gpu的时间也会被考虑，只是不考虑内存而已。当然，支持mem本就是scalene的特色功能（py-spy是否支持没细看）。
+
+* 火焰图可以更清晰地展示调用关系，某些情况下会更好看
+
+* scalene区分了python代码时间、非python代码时间和系统调用时间，需要适应（不算缺点）
+
+* 直接针对pid进行profiling涉及sudo权限（同py-spy）
 
   
 
@@ -166,22 +220,30 @@ pip install -U scalene
 直接运行下面的程序
 
 ```bash
-scalene cpu_demo.py
+scalene demo.py
 ```
 
-（就像之前说的，要是是python3.6使用，要加上`--cpu-only `
+（就像之前说的，要是是python3.6使用，要加上`--cpu-only `）
 
-完事儿会默认打开浏览器，通过网页形式展现，如图
+完事儿会默认打开浏览器，通过网页形式展现，如图（这里我注释掉了torch那一行，因为我本机没有gpu）
 
-![image-20220807211521407](/img/in-post/2022-08-08/image-20220807211521407.png)
+![image-20220811103753534](/img/in-post/2022-08-08/image-20220811103753534.png)
 
 各项信息都很清晰，可以说是相当现代的一种profiling。
 
-可以通过添加`--cli`实现直接在terminal里展示，更适合在服务器上使用（当然网页也可以，开个端口就好，再说，再说……）
+可以通过添加`--cli`实现直接在terminal里展示（对于服务器不需要），更适合在服务器上使用（当然网页也可以，开个端口就好，再说，再说……）
 
-![image-20220807205520052](/img/in-post/2022-08-08/image-20220807205520052.png)
+![iShot_2022-08-11_10.31.55](/img/in-post/2022-08-08/iShot_2022-08-11_10.31.55.jpg)
 
+还是很清晰的
 
+这里可以关注一下`time.sleep`这一行，看到是system时间较多
+
+当然，这里不好的一点是没有一个总的时间的展示（网页端的累积图有），就比较烦，感觉还是有一个总的网页端比较好
+
+这里不太好的一点是，没有展示初始化long_list的时间，原因待定
+
+但是比py-spy好的一点是，清晰展示了sleep时间
 
 ### 时间列意义
 
@@ -201,7 +263,6 @@ scalene cpu_demo.py
 
 
 
-
 ## 建议
 
 | 我们关心的特征        | line-profiler | py-spy | scalene |
@@ -214,14 +275,11 @@ scalene cpu_demo.py
 
 可以看到，以上三种工具，scalene是最为全面的，几乎包含所有我们需要的特性，所以大多数情况下，我们希望使用scalene：
 
-* 一般情况下，直接使用scalene：`scalene --cpu-only cpu_demo.py` ，此时展示的是当前目录下代码相关的profile
+* 一般情况下，直接使用scalene：`scalene --cpu-only demo.py` ，此时展示的是当前目录下代码相关的profile
 
-* 若自己写的项目较大，可以加上`--reduced-profile`参数，意为只保留瓶颈部分的代码：`scalene --cpu-only --reduced-profile cpu_demo.py`
+* 若自己写的项目较大，可以加上`--reduced-profile`参数，意为只保留瓶颈部分的代码：`scalene --cpu-only --reduced-profile demo.py`
 
 * `--profile-all `参数慎用，结果会非常有冗长，若需要使用，建议配合`--profile-only`参数使用，从而对文件进行筛选
 * 若需要清洗看到调用关系和占比，再使用py-spy
-
-
-
 
 
