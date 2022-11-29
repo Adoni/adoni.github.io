@@ -66,10 +66,6 @@ h5 {
 }
 
 /** put counter result into headings */
-#write h1:before {
-    counter-increment: h1;
-    content: counter(h1) ". "
-}
 
 #write h2:before {
     counter-increment: h2;
@@ -270,5 +266,4 @@ set showmatch
 是的，app名字就叫“自动切换输入法”，极其直白……和iShot是同一家出的，这家的app有的名字很漂亮，有的就很直白（比如还有一个app叫LiuHai，就是专门美化macbook刘海的……，一度怀疑是不是两拨产品经理酷😂）。作用很简单，就是给每个app规定一个默认输入法，切换到这个app的时候自动切换输入法（产品经理：名字这不就来了吗……）。
 
 举个例子，我在PyCharm用英文输入法写代码呢，结果钉钉有人给我发消息，我切换回钉钉，这时候需要切换输入法，但是装了这个软件后，我就啥都不用干了，默认就回到中文输入法了。回复完毕，回到PyCharm页面，又自动切换为了英文输入法。
-
 
