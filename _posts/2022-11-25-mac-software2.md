@@ -2,15 +2,13 @@
 layout:     post
 title:      "神兵利器-2"
 subtitle:   "我的Mac装机清单"
-date:       2022-08-08 10:43:00
+date:       2022-11-25 10:43:00
 author:     "Xiaofei"
 header-img: "img/in-post/2022-10-20/background.jpg"
 header-mask: 0.7
 catalog:    true
 tags:
-    - Python
     - Tools
-    - 性能优化
 ---
 
 
