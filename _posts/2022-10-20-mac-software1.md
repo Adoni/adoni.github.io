@@ -4,7 +4,7 @@ title:      "神兵利器-1"
 subtitle:   "我的Mac装机清单"
 date:       2022-10-20 10:43:00
 author:     "Xiaofei"
-header-img: "img/in-post/2022-10-20/background.jpg"
+header-img: "img/in-post/2022-10-20-mac-software/background.jpg"
 header-mask: 0.7
 catalog:    true
 tags:
