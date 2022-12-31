@@ -81,6 +81,14 @@ sudo yum install zsh
 
 
 
+这里可以在`.zshrc`里加入一句话：
+
+```
+echo -e "\033];$HOSTNAME\007"
+```
+
+ 这样会在iterm2的标题（其他软件是否会显示没有验证）上显示host名称。
+
 
 
 ## 安装docker

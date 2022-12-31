@@ -121,6 +121,32 @@ h6.md-focus:before {
 
 
 
+### 格式化功能
+
+Typora有一个衍生的功能，就是可以对markdown进行格式化，最典型的是对表格的格式化。我们可以直接将表格贴进去，然后直接再复制，粘贴到其他地方，就会发现已经格式化完毕了。
+
+例如，我们非格式化的表格长这样
+
+```markdown
+| Tables   | A1  |  A2 |
+|----------|-------------|------|
+| B1 |  aaaaaaaaaaaaaaaaaaaa | 1600                        |
+| B 2 |    bb   |   $12 |
+| ddddddddddddB 3 | cccccccccccccccccc |    1 |
+```
+
+粘贴进去再复制出来，结果是：
+
+```markdown
+| Tables          | A1                   | A2   |
+| --------------- | -------------------- | ---- |
+| B1              | aaaaaaaaaaaaaaaaaaaa | 1600 |
+| B 2             | bb                   | $12  |
+| ddddddddddddB 3 | cccccccccccccccccc   | 1    |
+```
+
+
+
 ## Apifox
 
 （以下表述可能过时，毕竟很久没用过postman了）
