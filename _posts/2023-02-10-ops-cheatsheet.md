@@ -2,7 +2,7 @@
 layout:     post
 title:      "运维管理小经验"
 subtitle:   "不会运维的算法不是好全栈"
-date:       2022-12-12 10:43:00
+date:       2023-02-10 10:43:00
 author:     "Xiaofei"
 header-img: "img/in-post/2023-02-10-ops-cheatsheet/background.jpg"
 header-mask: 0.3
@@ -125,6 +125,16 @@ bind '"\e[B": history-search-forward'
 ```
 
 这样可以实现类似效果
+
+
+
+## 找不到某个.so文件
+
+strings /data/sunxiaofei/anaconda3/envs/fairseq/lib/libstdc++.so | grep GLIBCXX.3.4.20
+
+find / -name your_lib.so
+
+
 
 
 
