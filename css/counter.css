@@ -23,7 +23,7 @@ h2 {
         counter-increment: h2Counter;
             counter-reset: h3Counter;
 }
-h3:before {
+.post-container h3::before {
         content: counter(h2Counter) '.' counter(h3Counter) ' '
 }
 h3 {
