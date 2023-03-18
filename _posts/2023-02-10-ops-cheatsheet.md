@@ -128,13 +128,11 @@ bind '"\e[B": history-search-forward'
 
 
 
-## 找不到某个.so文件
+### 找不到某个.so文件
 
-strings /data/sunxiaofei/anaconda3/envs/fairseq/lib/libstdc++.so | grep GLIBCXX.3.4.20
-
+```bash
 find / -name your_lib.so
-
-
+```
 
 
 

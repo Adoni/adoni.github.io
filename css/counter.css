@@ -1,0 +1,31 @@
+/* reset h2 counter to -1 when meet a h1 element */
+#write {
+    counter-reset: h2Counter
+}
+
+/* insert number before h2 element */
+.post-container h2::before {
+  /*content: " ";
+  display: block;
+  border-bottom: 1px solid #ececec;
+  margin-top: 44px;
+  margin-bottom: 30px;
+  */
+  content: counter(h2Counter)'. '
+}
+
+/*h2:before {
+        content: counter(h2Counter)'. '
+}
+*/
+/* increase h2 counter and reset h3 counter when meet a h2 element */
+h2 {
+        counter-increment: h2Counter;
+            counter-reset: h3Counter;
+}
+h3:before {
+        content: counter(h2Counter) '.' counter(h3Counter) ' '
+}
+h3 {
+        counter-increment: h3Counter;
+}
