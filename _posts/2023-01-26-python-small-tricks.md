@@ -219,3 +219,66 @@ def do_something(a: int, b: Optional[int] = None):
 
 
 
+## typing支持泛型
+
+
+
+python中的类型提示是可以支持泛型的，核心概念可以搜索`TypeVar`
+
+示例程序：
+
+```python
+# encoding: utf-8
+from typing import TypeVar, List
+
+T = TypeVar("T")
+
+
+class A(object):
+    def __init__(self):
+        self.a = 1
+
+
+class B(object):
+    def __init__(self):
+        self.b = 2
+
+
+def get_first_one_1(origin_list):
+    return origin_list[0]
+
+
+def get_first_one_2(origin_list: List[T]) -> T:
+    return origin_list[0]
+
+
+def run():
+    a_list: List[A] = [A(), A()]
+    b_list: List[B] = [B(), B()]
+
+    print(get_first_one_1(a_list).a)
+    print(get_first_one_1(b_list).a)
+
+    print(get_first_one_2(a_list).a)
+    print(get_first_one_2(b_list).a)
+
+
+if __name__ == '__main__':
+    run()
+```
+
+
+
+我们在这里定义了两个函数`get_first_one_1`和`get_first_one_2`，其中`get_first_one_2`使用了TypeVar
+
+在run函数里，第30行和33行运行时会报错，但是30行不会提示，而33行则有提示，如截图：
+
+  <img src="/img/in-post/2023-01-26/type_var.png" alt="image-20230506180831296" style="zoom:50%;" />
+
+## type dict
+
+`TypedDict`可以算是在dict和data_class中间的一个类，核心是既是dict的子类（因此可以用dict的表示和初始化）同时还有提示功能（输入了不支持的key会在IDE中提示），注意只是提示不是报错，如图：
+
+  <img src="/img/in-post/2023-01-26/type_dict.png" alt="image-20230506180831296" style="zoom:50%;" />
+
+上面图里展示的代码虽然提示了报错，但是依旧是可以运行的。
