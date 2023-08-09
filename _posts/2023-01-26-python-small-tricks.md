@@ -282,3 +282,14 @@ if __name__ == '__main__':
   <img src="/img/in-post/2023-01-26/type_dict.png" alt="image-20230506180831296" style="zoom:50%;" />
 
 上面图里展示的代码虽然提示了报错，但是依旧是可以运行的。
+
+
+
+## ipython导出输入历史
+
+我们有的时候利用ipython验证想法，结果越写越多想导出成python文件继续开发，或者单纯因为验证通过不想再输入一遍，可以使用下面的命令导出输入历史
+
+```
+%hist -f input_history.py
+```
+
