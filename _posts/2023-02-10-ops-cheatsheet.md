@@ -136,6 +136,32 @@ find / -name your_lib.so
 
 
 
+### 找到io瓶颈
+
+https://cloud.tencent.com/developer/article/1718267
+
+```
+iostate
+```
+
+这个命令可以看读写速度
+
+
+
+```
+iostat -x 1 1000
+```
+
+这个命令可以持续观测io情况
+
+
+
+iotop -oP
+
+
+
+
+
 ## Docker
 
 ### docker info
