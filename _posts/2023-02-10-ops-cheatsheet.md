@@ -156,7 +156,22 @@ iostat -x 1 1000
 
 
 
+```
 iotop -oP
+```
+
+这个命令可以按照io情况对进程排序
+
+
+
+### 测速
+
+````
+pip install speedtest-cli
+speedtest-cli
+````
+
+
 
 
 
