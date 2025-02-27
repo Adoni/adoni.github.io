@@ -33,11 +33,17 @@ tags:
 
 ubuntu用户
 
-`sudo usermod -aG sudo yourname` 
+````bash
+sudo usermod -aG sudo yourname
+````
 
 centos用户
 
-`sudo usermod -aG wheel yourname` 
+```bash
+sudo usermod -aG wheel yourname
+```
+
+
 
 
 
@@ -45,7 +51,7 @@ centos用户
 
 将你电脑上的publish key（一般在`id_rsa.pub`中）粘贴到`.ssh/authorized_keys`中。尝试使用ssh key登录，如果不行，可以先检查文件夹和文件的权限，`.ssh`文件夹需要700权限，`authorized_keys`需要600权限，修改权限的方法如下：
 
-```
+```bash
 chmod 700 .ssh
 
 chmod 600 .ssh/authorized_keys
@@ -59,7 +65,7 @@ chmod 600 .ssh/authorized_keys
 
 安装zsh很简单：
 
-```
+```bash
 sudo yum install zsh
 ```
 
@@ -75,7 +81,9 @@ sudo yum install zsh
 
 然后用下面这行命令安装oh-my-zsh
 
-`sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+````bash
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+````
 
 多试几次一般会成功
 
@@ -83,7 +91,7 @@ sudo yum install zsh
 
 这里可以在`.zshrc`里加入一句话：
 
-```
+```bash
 echo -e "\033];$HOSTNAME\007"
 ```
 

@@ -293,3 +293,32 @@ if __name__ == '__main__':
 %hist -f input_history.py
 ```
 
+
+
+## 输出----
+
+在使用print的时候，我们有时会这样写：
+
+```python
+title = "Hello World"
+print("--------------" + title + "--------------")
+```
+
+
+
+或者尝试写的好看一点：
+
+```python
+title = "Hello World"
+print("-"*15 + title + "-"*15)
+```
+
+
+
+其实python自己本身是有这个函数的：
+
+```python
+title = "Hello World"
+print(title.center(50, "-"))
+```
+
